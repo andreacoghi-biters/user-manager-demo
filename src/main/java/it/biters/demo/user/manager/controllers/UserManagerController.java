@@ -2,6 +2,8 @@ package it.biters.demo.user.manager.controllers;
 
 import it.biters.demo.user.manager.dtos.UserDto;
 import it.biters.demo.user.manager.dtos.UserManagerInputRequest;
+import it.biters.demo.user.manager.dtos.UserManagerSearchRequest;
+import it.biters.demo.user.manager.dtos.UserManagerSearchResponse;
 import it.biters.demo.user.manager.exceptions.UserNotFoundException;
 import it.biters.demo.user.manager.mappers.UserManagerMapper;
 import it.biters.demo.user.manager.models.UserModel;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 
@@ -73,6 +76,14 @@ public class UserManagerController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, message, e);
         }
         return ResponseEntity.status(NO_CONTENT).build();
+    }
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<UserManagerSearchResponse> search(@RequestBody UserManagerSearchRequest request) {
+        List<UserModel> usersModels = service.search(request.firstName(), request.lastName());
+        List<UserDto> usersDtos = mapper.allModels2dtos(usersModels);
+        var userSearchResponse = new UserManagerSearchResponse(usersDtos);
+        return ResponseEntity.status(OK).body(userSearchResponse);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

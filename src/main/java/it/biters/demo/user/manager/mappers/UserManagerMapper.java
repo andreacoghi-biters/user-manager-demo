@@ -8,6 +8,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper
 public interface UserManagerMapper {
 
@@ -24,4 +26,8 @@ public interface UserManagerMapper {
     UserDto model2dto(UserModel userModel);
 
     void updateDao(@MappingTarget UserEntity userEntity, UserModel userModel);
+
+    List<UserModel> allDaos2models(List<UserEntity> userEntity);
+
+    List<UserDto> allModels2dtos(List<UserModel> userEntity);
 }

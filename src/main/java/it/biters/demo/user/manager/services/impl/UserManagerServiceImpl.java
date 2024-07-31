@@ -9,6 +9,8 @@ import it.biters.demo.user.manager.services.UserManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserManagerServiceImpl implements UserManagerService {
@@ -39,5 +41,11 @@ public class UserManagerServiceImpl implements UserManagerService {
     public void delete(long id) throws UserNotFoundException {
         UserEntity userEntity = repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         repository.delete(userEntity);
+    }
+
+    @Override
+    public List<UserModel> search(String firstName, String lastName) {
+        List<UserEntity> userEntities = repository.searchByFirstNameAndLastName(firstName, lastName);
+        return mapper.allDaos2models(userEntities);
     }
 }
