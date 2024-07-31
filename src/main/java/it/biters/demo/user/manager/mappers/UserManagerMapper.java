@@ -4,6 +4,7 @@ import it.biters.demo.user.manager.data.entities.UserEntity;
 import it.biters.demo.user.manager.dtos.UserDto;
 import it.biters.demo.user.manager.dtos.UserManagerInputRequest;
 import it.biters.demo.user.manager.models.UserModel;
+import org.apache.commons.csv.CSVRecord;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -30,4 +31,11 @@ public interface UserManagerMapper {
     List<UserModel> allDaos2models(List<UserEntity> userEntity);
 
     List<UserDto> allModels2dtos(List<UserModel> userEntity);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "firstName", expression = "java(csvRecord.get(\"firstName\"))")
+    @Mapping(target = "lastName", expression = "java(csvRecord.get(\"lastName\"))")
+    @Mapping(target = "email", expression = "java(csvRecord.get(\"email\"))")
+    @Mapping(target = "address", expression = "java(csvRecord.get(\"address\"))")
+    UserModel csvRecord2model(CSVRecord csvRecord);
 }
