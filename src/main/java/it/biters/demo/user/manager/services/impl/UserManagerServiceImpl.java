@@ -42,7 +42,6 @@ public class UserManagerServiceImpl implements UserManagerService {
 
     @Override
     public void update(UserModel userModel) throws UserNotFoundException {
-//        repository.update(userModel.firstName(), userModel.firstName(), userModel.email(), userModel.address(), userModel.id());
         UserEntity userEntity = repository.findById(userModel.id()).orElseThrow(() -> new UserNotFoundException(userModel.id()));
         mapper.updateDao(userEntity, userModel);
         repository.save(userEntity);

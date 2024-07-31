@@ -1,13 +1,19 @@
 package it.biters.demo.user.manager.data.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "USERS")
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class UserEntity implements Serializable {
 
     @Id
