@@ -24,7 +24,13 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @RequiredArgsConstructor
 public class UserManagerServiceImpl implements UserManagerService {
 
-    public static final CSVFormat CSV_FORMAT = CSVFormat.Builder.create().setIgnoreHeaderCase(true).setTrim(true).build();
+    public static final CSVFormat CSV_FORMAT = CSVFormat.DEFAULT.builder()
+            .setHeader()
+            .setSkipHeaderRecord(true)
+            .setIgnoreHeaderCase(true)
+            .setTrim(true)
+            .build();
+
     private final UserManagerMapper mapper;
     private final UserRepository repository;
     private final Validator validator;
