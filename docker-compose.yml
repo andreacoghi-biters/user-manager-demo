@@ -7,7 +7,7 @@ networks:
         - subnet: 172.25.0.0/24
 services:
   app:
-    image: andreacoghi-biters/user-manager-demo:1.0.0
+    image: andreacoghi-biters/user-manager-demo:1.1.0-SNAPSHOT
     container_name: user-manager-demo-app
     restart: unless-stopped
     ports:

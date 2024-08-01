@@ -10,7 +10,7 @@
     </parent>
     <groupId>it.biters.demo</groupId>
     <artifactId>user-manager-demo</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0-SNAPSHOT</version>
     <properties>
         <commons-csv.version>1.11.0</commons-csv.version>
         <java.version>21</java.version>
