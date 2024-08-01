@@ -1,0 +1,36 @@
+networks:
+  appdb-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.25.0.0/24
+services:
+  app:
+    image: andreacoghi-biters/user-manager-demo:0.0.1-SNAPSHOT
+    container_name: user-manager-demo-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://172.25.0.3:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: MGGpURZj}0[f
+    networks:
+      appdb-net:
+        ipv4_address: 172.25.0.2
+  db:
+    image: postgres:16.3
+    container_name: user-manager-demo-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: MGGpURZj}0[f
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      appdb-net:
+        ipv4_address: 172.25.0.3
+volumes:
+  pgdata:
